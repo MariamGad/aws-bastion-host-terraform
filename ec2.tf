@@ -16,20 +16,25 @@ resource "aws_instance" "bastion_host" {
     subnet_id = each.value.id
     vpc_security_group_ids =[aws_security_group.allow_ssh.id]
     key_name = "aws_keys_pairs"
+    depends_on =[tls_private_key.private_key]
     tags = {
     Name = "${var.NAME}_${each.key}_bastion"
     }
-    depends_on =[tls_private_key.private_key]
-    provisioner "file" {
-        source      = "tf-key-pair.pem"
-        destination = "/home/ec2-user/tf-key-pair.pem"
-        
-        connection {
+    connection {
         type        = "ssh"
         user        = "ec2-user"
         private_key = tls_private_key.private_key.private_key_pem
         host        = "${self.public_ip}"
-        }
+    }
+    provisioner "file" {
+        source      = "tf-key-pair.pem"
+        destination = "/home/ec2-user/tf-key-pair.pem"
+        
+    }
+    provisioner "remote-exec" {
+    inline = [
+        "chmod 400 /home/ec2-user/tf-key-pair.pem"
+        ]
     }
 
 }
