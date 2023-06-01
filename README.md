@@ -2,7 +2,7 @@
  ## Overview
 Using Terraform Create EC2 jump server in public subnet to be able to access private EC2 instances 
 <div align="center">
-<img src=https://github.com/MariamGad/aws-bastion-host-terraform/assets/47721226/666d677b-cb61-4afd-aece-ef565f6aebdf>
+<img src=https://github.com/MariamGad/aws-bastion-host-terraform/assets/47721226/53cbd383-1b22-4b1c-838f-0edf0b234c26>
 </div>
 
 ---
